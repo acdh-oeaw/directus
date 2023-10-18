@@ -28,7 +28,7 @@ Environment variables needed for the Directus stack:
 |K8S_SECRET_ADMIN_EMAIL|:white_check_mark:|Secret|Env|E-mail address of admin user. |
 |K8S_SECRET_ADMIN_PASSWORD|:white_check_mark:|Secret|Env|The password for the admin user. |  
 
-### How to deploy new WissKI instance
+### How to deploy new Directus instance
 
 1. Create Kubernetes namespace.
 2. Create PostgresDB database.
