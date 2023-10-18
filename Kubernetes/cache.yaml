@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cache
+spec:
+  selector:
+      app: cache
+  ports:
+    - protocol: TCP
+      port: 6379
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache
+spec:
+  selector:
+    matchLabels:
+      app: cache
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cache
+        ID: "cache_service_id"
+    spec:
+      containers:
+        - name: cache
+          image: redis:6
+          imagePullPolicy: Always
+          command: []
+          resources:
+            limits:
+              memory: 2048Mi
+          stdin: true
+          tty: true
+          ports:
+          - containerPort: 6379

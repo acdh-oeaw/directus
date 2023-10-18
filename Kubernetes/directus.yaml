@@ -1,0 +1,195 @@
+e apiVersion: v1
+kind: Service
+metadata:
+  name: directus
+spec:
+  selector:
+      app: directus
+  ports:
+    - protocol: TCP
+      port: 8055
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: directus-uploads
+spec:
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: "1000Mi"
+  volumeMode: Filesystem
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: directus-extensions
+spec:
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: "1000Mi"
+  volumeMode: Filesystem
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directus
+spec:
+  selector:
+    matchLabels:
+      app: directus
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: directus
+        ID: "directus_service_id"
+    spec:
+      containers:
+      - name: directus
+        image: directus/directus:10.4.0
+          resources:
+            limits:
+              memory: 2048Mi
+        imagePullPolicy: Always
+        env:
+        - name: KEY
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: KEY
+        - name: SECRET
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: SECRET
+        - name: DB_CLIENT
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: DB_CLIENT
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: DB_PORT
+        - name: DB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: DB_DATABASE
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: DB_PASSWORD
+        - name: CACHE_ENABLED
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: CACHE_ENABLED
+        - name: CACHE_STORE
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: CACHE_STORE
+        - name: REDIS
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: REDIS
+        - name: ADMIN_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: ADMIN_EMAIL
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: ADMIN_PASSWORD
+        - name: PUBLIC_URL
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: PUBLIC_URL
+            
+        command: []
+        stdin: true
+        tty: true
+        ports:
+        - containerPort: 8055
+        volumeMounts:
+        - mountPath: /directus/uploads
+          name: directus-uploads
+        - mountPath: /directus/extensions
+          name: directus-extensions
+      imagePullSecrets:
+      - name: github
+      initContainers:
+      - name: redis
+        image: busybox
+        command: ['sh', '-c', 'until nslookup redis.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for redis; sleep 2; done;']
+      - name: changeowner
+        image: busybox
+        command: ["sh", "-c", "chown -R 33:33 /directus/uploads /directus/extensions"]   
+        volumeMounts:
+        - name: directus-uploads
+          mountPath: /directus/uploads
+        - name: directus-extensions
+          mountPath: /directus/extensions
+      volumes:
+          - name: directus-uploads
+            persistentVolumeClaim:
+              claimName: directus-uploads
+          - name: directus-extensions
+            persistentVolumeClaim:
+              claimName: directus-extensions
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: directus
+  annotations: 
+    nginx.ingress.kubernetes.io/proxy-body-size: '0'
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '300'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '300'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '300'  
+spec:
+  rules:
+    - host: directus_public_url
+      http:
+        paths:
+          - backend:
+              service:
+                name: directus
+                port:
+                  number: 8055
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - directus_public_url
