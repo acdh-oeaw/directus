@@ -150,7 +150,7 @@ spec:
       initContainers:
       - name: cache
         image: busybox
-        command: ['sh', '-c', 'until nslookup redis.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for cache; sleep 2; done;']
+        command: ['sh', '-c', 'until nslookup cache.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for cache; sleep 2; done;']
       volumes:
           - name: directus-uploads
             persistentVolumeClaim:
