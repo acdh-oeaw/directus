@@ -11,7 +11,7 @@ Environment variables needed for the Directus stack:
 |KUBE_CONFIG|:white_check_mark:|Secret|Org|base64 encoded K8s config file. Usually set at the Org level and shared by all (public) repositories. |
 |C2_KUBE_CONFIG|:white_check_mark:|Secret|Org|If you deploy using the workflow for the second cluster the C2_ variant is used. |
 |KUBE_NAMESPACE|:white_check_mark:|Variable|Repo/Env|The K8s namespace the deployment should be installed to. |
-|DIRECTUS_PUBLIC_URL|:white_check_mark:|Variable|Env|The URI that should be configured for access to the service. |
+|K8S_SECRET_PUBLIC_URL|:white_check_mark:|Variable|Env|The URI that should be configured for access to the service. |
 |DIRECTUS_SERVICE_ID|:white_check_mark:|Variable|Env|A K8s label ID is attached to the workload/deployment with this value (usually a number) |
 |CACHE_SERVICE_ID|:white_check_mark:|Variable|Env|A K8s label ID is attached to the workload/deployment with this value (usually a number) |
 |K8S_SECRET_KEY|:white_check_mark:|Secret|Repo/Env|Secret key |
