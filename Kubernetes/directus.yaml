@@ -1,4 +1,4 @@
-e apiVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: directus
@@ -133,8 +133,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: directus-envs
-              key: PUBLIC_URL
-            
+              key: PUBLIC_URL            
         command: []
         stdin: true
         tty: true
@@ -148,9 +147,9 @@ spec:
       imagePullSecrets:
       - name: github
       initContainers:
-      - name: redis
+      - name: cache
         image: busybox
-        command: ['sh', '-c', 'until nslookup redis.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for redis; sleep 2; done;']
+        command: ['sh', '-c', 'until nslookup redis.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for cache; sleep 2; done;']
       - name: changeowner
         image: busybox
         command: ["sh", "-c", "chown -R 33:33 /directus/uploads /directus/extensions"]   

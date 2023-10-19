@@ -36,14 +36,14 @@ spec:
             volumeMounts:
             - mountPath: /backup
               name: backup           
-            - mountPath: /directus/uploads
+            - mountPath: /uploads
               name: directus-uploads   
-            - mountPath: /directus/extensions
+            - mountPath: /extensions
               name: directus-extensions  
               command:
             - /bin/sh
             - -c
-            - find /backup -type f -mtime +10 -delete && cd / && tar -czvf /backup/directus-backup-$(date +"%Y_%m_%d_%H_%M").tar.gz directus-uploads directus-extensions  
+            - find /backup -type f -mtime +10 -delete && cd / && tar -czvf /backup/directus-backup-$(date +"%Y_%m_%d_%H_%M").tar.gz uploads extensions  
           volumes:
           - name: backup 
             persistentVolumeClaim:
