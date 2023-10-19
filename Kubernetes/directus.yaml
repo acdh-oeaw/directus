@@ -151,6 +151,14 @@ spec:
       - name: cache
         image: busybox
         command: ['sh', '-c', 'until nslookup cache.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for cache; sleep 2; done;']
+      - name: changeowner
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /directus-uploads /directus-extensions"]   
+        volumeMounts:
+        - name: directus-uploads
+          mountPath: /directus-uploads
+        - name: directus-extensions
+          mountPath: /directus-extensions
       volumes:
           - name: directus-uploads
             persistentVolumeClaim:
