@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build drupal
+    name: Build directus
     runs-on: ubuntu-latest
     outputs:
       environment: ${{ steps.get_environment_from_git_ref.outputs.environment }}
