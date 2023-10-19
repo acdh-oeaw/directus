@@ -59,9 +59,6 @@ spec:
       containers:
       - name: directus
         image: directus/directus:10.4.0
-          resources:
-            limits:
-              memory: 2048Mi
         imagePullPolicy: Always
         env:
         - name: KEY
@@ -135,6 +132,10 @@ spec:
               name: directus-envs
               key: PUBLIC_URL            
         command: []
+        resources:
+          limits:
+            memory: 2048Mi
+            cpu: "1"
         stdin: true
         tty: true
         ports:

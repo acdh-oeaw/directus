@@ -40,7 +40,7 @@ spec:
               name: directus-uploads   
             - mountPath: /extensions
               name: directus-extensions  
-              command:
+            command:
             - /bin/sh
             - -c
             - find /backup -type f -mtime +10 -delete && cd / && tar -czvf /backup/directus-backup-$(date +"%Y_%m_%d_%H_%M").tar.gz uploads extensions  
