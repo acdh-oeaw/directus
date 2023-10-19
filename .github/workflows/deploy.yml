@@ -84,7 +84,8 @@ jobs:
         VARS_CONTEXT: ${{ toJson(vars) }}    
       run: |
         echo "Introduce env variable related to the branch ${{ github.ref_name }}"     
-        sed -i -e "s|directus_public_url|${{ vars.DIRECTUS_NGINX_PUBLIC_URL }}|g" Kubernetes/directus.yaml
+        sed -i -e "s|directus_public_url|${{ secrets.PUBLIC_URL }}|g" Kubernetes/directus.yaml
+        sed -i -e "s|https://||g" Kubernetes/directus.yaml
         sed -i -e "s|directus_service_id|${{ vars.DIRECTUS_SERVICE_ID }}|g" Kubernetes/directus.yaml
         sed -i -e "s|name: directus-envs|name: ${{ github.ref_name }}|g" Kubernetes/directus.yaml
         sed -i -e "s|cache_service_id|${{ vars.CACHE_SERVICE_ID }}|g" Kubernetes/cache.yaml
