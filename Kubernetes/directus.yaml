@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
       - name: directus
-        image: directus/directus:10.6.3
+        image: directus/directus:10.7.0
         imagePullPolicy: Always
         env:
         - name: KEY
