@@ -161,6 +161,11 @@ spec:
             secretKeyRef:
               name: directus-envs
               key: EMAIL_SMTP_PASSWORD 
+        - name: EMAIL_SMTP_SECURE
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: EMAIL_SMTP_SECURE 
         command: []
         resources:
           limits:
