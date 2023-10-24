@@ -34,6 +34,7 @@ Environment variables needed for the Directus stack:
 |K8S_SECRET_EMAIL_SMTP_USER|:white_check_mark:|Secret|Env|Email SMTP username. | 
 |K8S_SECRET_EMAIL_SMTP_PASSWORD|:white_check_mark:|Secret|Env|Email SMTP password. | 
 |K8S_SECRET_EMAIL_SMTP_SECURE|:white_check_mark:|Secret|Env|Enable TLS |  
+|K8S_SECRET_EMAIL_SMTP_POOL|:white_check_mark:|Secret|Env|Enable SMTP pool. |
 
 ### How to deploy new Directus instance
 
