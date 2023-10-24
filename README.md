@@ -27,6 +27,12 @@ Environment variables needed for the Directus stack:
 |K8S_SECRET_ADMIN_EMAIL|:white_check_mark:|Secret|Env|E-mail address of admin user. |
 |K8S_SECRET_ADMIN_PASSWORD|:white_check_mark:|Secret|Env|The password for the admin user. |  
 |K8S_SECRET_PUBLIC_URL|:white_check_mark:|Variable|Env|The URI with https:// that should be configured for access to the service. |
+|K8S_SECRET_EMAIL_FROM|:white_check_mark:|Secret|Env|Email address. | 
+|K8S_SECRET_EMAIL_TRANSPORT|:white_check_mark:|Secret|Env|Email transport type. (smtp) | 
+|K8S_SECRET_EMAIL_SMTP_HOST|:white_check_mark:|Secret|Env|Email SMTP host. | 
+|K8S_SECRET_EMAIL_SMTP_PORT|:white_check_mark:|Secret|Env|Email SMTP port. | 
+|K8S_SECRET_EMAIL_SMTP_USER|:white_check_mark:|Secret|Env|Email SMTP username. | 
+|K8S_SECRET_EMAIL_SMTP_PASSWORD|:white_check_mark:|Secret|Env|Email SMTP password. | 
 
 ### How to deploy new Directus instance
 

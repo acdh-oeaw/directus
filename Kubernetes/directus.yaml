@@ -130,12 +130,42 @@ spec:
           valueFrom:
             secretKeyRef:
               name: directus-envs
-              key: PUBLIC_URL            
+              key: PUBLIC_URL         
+        - name: EMAIL_FROM
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: EMAIL_FROM     
+        - name: EMAIL_TRANSPORT
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: EMAIL_TRANSPORT 
+        - name: EMAIL_SMTP_HOST
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: EMAIL_SMTP_HOST 
+        - name: EMAIL_SMTP_PORT
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: EMAIL_SMTP_PORT 
+        - name: EMAIL_SMTP_USER
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: EMAIL_SMTP_USER 
+        - name: EMAIL_SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: directus-envs
+              key: EMAIL_SMTP_PASSWORD 
         command: []
         resources:
           limits:
-            memory: 2048Mi
-            cpu: "1"
+            memory: 8192Mi
+            cpu: "4"
         stdin: true
         tty: true
         ports:
