@@ -54,7 +54,6 @@ spec:
     metadata:
       labels:
         app: directus
-        ID: "directus_service_id"
     spec:
       containers:
       - name: directus
@@ -213,6 +212,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: directus
+  labels:
+        ID: "directus_service_id"
   annotations: 
     nginx.ingress.kubernetes.io/proxy-body-size: '0'
     nginx.ingress.kubernetes.io/proxy-connect-timeout: '300'
