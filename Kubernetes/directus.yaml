@@ -235,3 +235,4 @@ spec:
   tls:
     - hosts:
         - directus_public_url
+      secretName: directus-acdh-dev-tls
