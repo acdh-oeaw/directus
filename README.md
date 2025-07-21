@@ -21,6 +21,7 @@ Environment variables needed for the Directus stack:
 |K8S_SECRET_DB_USER|:white_check_mark:|Secret|Env|Username for the PostgresDB database. |  
 |K8S_SECRET_DB_PASSWORD|:white_check_mark:|Secret|Env|Password for the PostgresDB database. |
 |K8S_SECRET_DB_DATABASE|:white_check_mark:|Secret|Env|Name of the PostgresDB database to use. |  
+|K8S_SECRET_DB_SEARCH_PATH|:white_check_mark:|Secret|Env|Name of the PostgresDB database schema to use. |  
 |K8S_SECRET_CACHE_ENABLED|:white_check_mark:|Secret|Repo/Env|Set to true to enable caching. |
 |K8S_SECRET_CACHE_STORE|:white_check_mark:|Secret|Repo/Env|Service used for caching. Should be set to redis. |
 |K8S_SECRET_REDIS|:white_check_mark:|Secret|Env|URL of Redis service. Should be set to redis://cache:6379 |  
